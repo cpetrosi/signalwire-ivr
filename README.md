@@ -1,2 +1,1 @@
-# signalwire-ivr
-Creating Your Business Cloud Communications Systems with SignalWire
+# Creating Your Business Cloud Communications Systems with SignalWire

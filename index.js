@@ -48,7 +48,7 @@ app.get("/requeue-agent", (req, res, next) => {
 
   res.set('Content-Type', 'text/xml');
   res.send(response.toString());
-  console.log("mmv-response Request Params from server  --->" + JSON.stringify(req.query));
+  console.log("requeue-agent Request Params from server  --->" + JSON.stringify(req.query));
 
 });
 

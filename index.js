@@ -1,6 +1,7 @@
 const { RestClient } = require('@signalwire/node')
 var express = require("express");
 var app = express();
+app.use(express.urlencoded());
 
 app.get("/main-menu", (req, res, next) => {
   var response = new RestClient.LaML.VoiceResponse();
@@ -21,13 +22,57 @@ app.get("/main-menu", (req, res, next) => {
   console.log("main-menu Request Params from server  --->" + JSON.stringify(req.query));
 });
 
+app.post("/transcription", (req, res, next) => {
+  var response = new RestClient.LaML.MessagingResponse();
+
+  function sendSms(to, from) {
+    const project = 'YourProjectID';
+    const token = 'YourAuthToken';
+    const client = new RestClient(project, token, { signalwireSpaceUrl: 'example.signalwire.com' });
+
+    return client.messages.create({
+      body: "Missed call from: " + req.body.From + ". Here is the message: " + req.body.TranscriptionText,
+      from: from,
+      to: to,
+    }).then()
+      .catch(function(error) {
+        if (error.code === 21614) {
+          console.log("Uh oh, looks like this caller can't receive SMS messages.")
+        }
+      })
+      .done()
+  };
+
+
+  const to = '+XXXXXXXXXXX';
+  const from = '+XXXXXXXXXXX';
+  sendSms(to, from);
+
+  res.set('Content-Type', 'text/xml');
+  res.send(response.toString());
+  console.log("transcription Request Params from server  --->" + JSON.stringify(req.body));
+});
+
+
+
 app.get("/mmv-response", (req, res, next) => {
   var response = new RestClient.LaML.VoiceResponse();
-  var dial = response.dial();
+  var dial = response.dial({ timeout: 10 });
   var digits = req.query.Digits;
   var speech = req.query.SpeechResult;
 
-  if (digits == "1" || speech == "help") { dial.number('650-382-0000'); }
+  if (digits == "1" || speech == "help") {
+    dial.number('XXX-XXX-XXXX');
+    response.say('Sorry, the person you are trying to reach is not available. Please leave a message after the beep. Press the pound key when you are finished.');
+    response.record({
+      maxLength: 20,
+      action: 'https://sub.domain.com:3000/recording',
+      method: 'GET',
+      finishOnKey: '#',
+      transcribe: true,
+      transcribeCallback: 'https://sub.domain.com:3000/transcription'
+    });
+  }
   else if (digits == "2" || speech == "conference") { dial.conference('support'); }
   else if (digits == "3" || speech == "expert") {
     dial.queue('expert');
@@ -38,6 +83,12 @@ app.get("/mmv-response", (req, res, next) => {
   res.set('Content-Type', 'text/xml');
   res.send(response.toString());
   console.log("mmv-response Request Params from server  --->" + JSON.stringify(req.query));
+});
+
+app.get("/recording", (req, res, next) => {
+
+  res.set('Content-Type', 'text/xml');
+
 });
 
 app.get("/requeue-agent", (req, res, next) => {

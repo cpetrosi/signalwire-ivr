@@ -14,7 +14,6 @@ app.get("/main-menu", (req, res, next) => {
   gather.say("Hello and welcome to SignalWire.", { voice: 'man' });
   gather.say("If you're a customer in need of help, press 1, or say help.", { voice: 'man' });
   gather.say("If you have been invited to a conference, press 2, or say conference.", { voice: 'man' });
-  gather.say("If you're an expert assisting customers, press 3, or say expert.", { voice: 'man' });
   response.say("We did not receive an option. Goodbye.");
 
   res.set('Content-Type', 'text/xml');
@@ -74,10 +73,6 @@ app.get("/mmv-response", (req, res, next) => {
     });
   }
   else if (digits == "2" || speech == "conference") { dial.conference('support'); }
-  else if (digits == "3" || speech == "expert") {
-    dial.queue('expert');
-    response.redirect('https://sub.domain.com:3000/requeue-agent', { method: 'GET' });
-  }
   else { response.say('We received an incorrect option. Goodbye.'); }
 
   res.set('Content-Type', 'text/xml');
@@ -88,18 +83,6 @@ app.get("/mmv-response", (req, res, next) => {
 app.get("/recording", (req, res, next) => {
 
   res.set('Content-Type', 'text/xml');
-
-});
-
-app.get("/requeue-agent", (req, res, next) => {
-  var response = new RestClient.LaML.VoiceResponse();
-  var dial = response.dial();
-
-  dial.queue('expert');
-
-  res.set('Content-Type', 'text/xml');
-  res.send(response.toString());
-  console.log("requeue-agent Request Params from server  --->" + JSON.stringify(req.query));
 
 });
 

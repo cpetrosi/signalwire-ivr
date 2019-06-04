@@ -9,7 +9,7 @@ app.get("/main-menu", (req, res, next) => {
     action: 'https://sub.domain.com:3000/mmv-response',
     method: 'GET',
     input: 'dtmf speech',
-    hints: 'help, conference, expert'
+    hints: 'help, conference'
   })
   gather.say("Hello and welcome to SignalWire.", { voice: 'man' });
   gather.say("If you're a customer in need of help, press 1, or say help.", { voice: 'man' });

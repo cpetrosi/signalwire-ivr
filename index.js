@@ -63,7 +63,7 @@ app.get("/mmv-response", (req, res, next) => {
 
   if (digits == "1" || speech == "help") {
     var dial = response.dial({ timeout: 10 });
-    dial.number('650-382-0000');
+    dial.number('818-653-2611');
     response.say('Sorry, the person you are trying to reach is not available. Please leave a message after the beep. Press the pound key and hang up when you are finished.');
     response.record({
       maxLength: 20,
@@ -88,16 +88,6 @@ app.get("/mmv-response", (req, res, next) => {
     gather.say("If you know your party’s extension, you may dial it at any time.");
     response.say("We did not receive an option. Goodbye.");
   }
-  else if (digits == "2000") {
-    response.say('Please hold, connecting you to Brian West.');
-    var dial = response.dial();
-    dial.number('650-434-8016');
-  }
-  else if (digits == "2001") {
-    response.say('Please hold, connecting you to Jason Atkins.');
-    var dial = response.dial();
-    dial.number('650-434-8017');
-  }
   else if (digits == "2002") {
     response.say('Please hold, connecting you to Ryan McGivern.');
     var dial = response.dial();
@@ -113,95 +103,10 @@ app.get("/mmv-response", (req, res, next) => {
     var dial = response.dial();
     dial.number('650-434-8020');
   }
-  else if (digits == "2005") {
-    response.say('Please hold, connecting you to Daniel Gotlieb.');
-    var dial = response.dial();
-    dial.number('650-434-8021');
-  }
-  else if (digits == "2006") {
-    response.say('Please hold, connecting you to Sean Heiney.');
-    var dial = response.dial();
-    dial.number('650-434-8022');
-  }
-  else if (digits == "2007") {
-    response.say('Please hold, connecting you to Michael Jerris.');
-    var dial = response.dial();
-    dial.number('650-434-8023');
-  }
-  else if (digits == "2008") {
-    response.say('Please hold, connecting you to Shashi Kumar.');
-    var dial = response.dial();
-    dial.number('650-434-8024');
-  }
   else if (digits == "2009") {
     response.say('Please hold, connecting you to Erik Lagerway.');
     var dial = response.dial();
     dial.number('650-434-8025');
-  }
-  else if (digits == "2010") {
-    response.say('Please hold, connecting you to Evan McGee.');
-    var dial = response.dial();
-    dial.number('650-434-8026');
-  }
-  else if (digits == "2011") {
-    response.say('Please hold, connecting you to Anthony Minessale.');
-    var dial = response.dial();
-    dial.number('650-434-8027');
-  }
-  else if (digits == "2012") {
-    response.say('Please hold, connecting you to Jill Minessale.');
-    var dial = response.dial();
-    dial.number('650-434-8028');
-  }
-  else if (digits == "2013") {
-    response.say('Please hold, connecting you to Fred Muteesa.');
-    var dial = response.dial();
-    dial.number('650-434-8029');
-  }
-  else if (digits == "2014") {
-    response.say('Please hold, connecting you to Christopher Rienzo.');
-    var dial = response.dial();
-    dial.number('650-434-8030');
-  }
-  else if (digits == "2015") {
-    response.say('Please hold, connecting you to Bryan Rite.');
-    var dial = response.dial();
-    dial.number('650-434-8031');
-  }
-  else if (digits == "2016") {
-    response.say('Please hold, connecting you to Alex Sibyakin.');
-    var dial = response.dial();
-    dial.number('650-434-8032');
-  }
-  else if (digits == "2017") {
-    response.say('Please hold, connecting you to Andrey Volk.');
-    var dial = response.dial();
-    dial.number('650-434-8033');
-  }
-  else if (digits == "2018") {
-    response.say('Please hold, connecting you to Sharon White.');
-    var dial = response.dial();
-    dial.number('650-434-8034');
-  }
-  else if (digits == "2019") {
-    response.say('Please hold, connecting you to Joshua Young.');
-    var dial = response.dial();
-    dial.number('650-434-8035');
-  }
-  else if (digits == "2020") {
-    response.say('Please hold, connecting you to Shane Bryldt.');
-    var dial = response.dial();
-    dial.number('650-434-8036');
-  }
-  else if (digits == "2021") {
-    response.say('Please hold, connecting you to Madison Ream.');
-    var dial = response.dial();
-    dial.number('650-434-8037');
-  }
-  else if (digits == "2022") {
-    response.say('Please hold, connecting you to Abbi Minessale.');
-    var dial = response.dial();
-    dial.number('650-434-8038');
   }
   else { response.say('We received an incorrect option. Goodbye.'); }
 

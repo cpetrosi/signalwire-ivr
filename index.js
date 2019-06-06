@@ -46,7 +46,7 @@ app.post("/transcription", (req, res, next) => {
   };
 
 
-  const to = '+18186532611';
+  const to = '+16045628647';
   const from = '+13103560879';
   sendSms(to, from);
 
@@ -63,7 +63,7 @@ app.get("/mmv-response", (req, res, next) => {
 
   if (digits == "1" || speech == "help") {
     var dial = response.dial({ timeout: 10 });
-    dial.number('818-653-2611');
+    dial.number('650-382-0000');
     response.say('Sorry, the person you are trying to reach is not available. Please leave a message after the beep. Press the pound key and hang up when you are finished.');
     response.record({
       maxLength: 20,

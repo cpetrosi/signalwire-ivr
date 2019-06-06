@@ -6,7 +6,7 @@ app.use(express.urlencoded());
 app.get("/main-menu", (req, res, next) => {
   var response = new RestClient.LaML.VoiceResponse();
   var gather = response.gather({
-    action: 'https://sub.domain.com:3000/mmv-response',
+    action: 'http://190.102.98.249:3000/mmv-response',
     method: 'GET',
     input: 'dtmf speech',
     hints: 'help, conference'
@@ -28,9 +28,9 @@ app.post("/transcription", (req, res, next) => {
   var response = new RestClient.LaML.MessagingResponse();
 
   function sendSms(to, from) {
-    const project = 'YourProjectID';
-    const token = 'YourAuthToken';
-    const client = new RestClient(project, token, { signalwireSpaceUrl: 'example.signalwire.com' });
+    const project = '5510b4a4-c0a4-49ab-afef-a8526eb2ca4b';
+    const token = 'PT3219285b81d960424116f1b1b44cfa931a9f232017c7ebfe';
+    const client = new RestClient(project, token, { signalwireSpaceUrl: 'carleen.signalwire.com' });
 
     return client.messages.create({
       body: "Missed call from: " + req.body.From + ". Here is the message: " + req.body.TranscriptionText,
@@ -46,8 +46,8 @@ app.post("/transcription", (req, res, next) => {
   };
 
 
-  const to = '+XXXXXXXXXXX';
-  const from = '+XXXXXXXXXXX';
+  const to = '+18186532611';
+  const from = '+13103560879';
   sendSms(to, from);
 
   res.set('Content-Type', 'text/xml');
@@ -63,21 +63,21 @@ app.get("/mmv-response", (req, res, next) => {
 
   if (digits == "1" || speech == "help") {
     var dial = response.dial({ timeout: 10 });
-    dial.number('650-382-0000');
+    dial.number('818-653-2611');
     response.say('Sorry, the person you are trying to reach is not available. Please leave a message after the beep. Press the pound key and hang up when you are finished.');
     response.record({
       maxLength: 20,
-      action: 'https://sub.domain.com:3000/recording',
+      action: 'http://190.102.98.249:3000/recording',
       method: 'GET',
       finishOnKey: '#',
       transcribe: true,
-      transcribeCallback: 'https://sub.domain.com:3000/transcription'
+      transcribeCallback: 'http://190.102.98.249:3000/transcription'
     });
   }
   else if (digits == "2" || speech == "conference") { dial.conference('support'); }
   else if (digits == "*") {
     var gather = response.gather({
-      action: 'https://sub.domain.com:3000/mmv-response',
+      action: 'http://190.102.98.249:3000/mmv-response',
       method: 'GET',
       input: 'dtmf speech',
       hints: 'help, conference'
@@ -244,4 +244,4 @@ app.get("/message", (req, res, next) => {
 
 });
 
-app.listen(3000, () => { console.log("Server running on port 3000"); });
+app.listen(3000, '0.0.0.0', () => { console.log("Server running on port 3000"); });
